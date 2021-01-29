@@ -3,7 +3,7 @@ import { CreateOptions } from './createOptions';
 import DeepInsertService from './deepInsertService';
 import Preprocessor from './preprocessor';
 import Record from './record';
-import { CurrentUserRecordRepository } from '../repositories';
+import { CurrentUserRecordRepository, MetadataRepository } from '../repositories';
 
 /**
  * Manages the creation and cleanup of data.
@@ -20,6 +20,8 @@ export default class DataManager {
 
   private readonly appUserRecordRepo?: AuthenticatedRecordRepository;
 
+  private readonly metadataRepo: MetadataRepository;
+
   private readonly deepInsertSvc: DeepInsertService;
 
   private readonly preprocessors?: Preprocessor[];
@@ -35,10 +37,12 @@ export default class DataManager {
   constructor(
     currentUserRecordRepo: CurrentUserRecordRepository,
     deepInsertService: DeepInsertService,
+    metadataRepo:MetadataRepository,
     preprocessors?: Preprocessor[],
     appUserRecordRepo?: AuthenticatedRecordRepository,
   ) {
     this.currentUserRecordRepo = currentUserRecordRepo;
+    this.metadataRepo = metadataRepo;
     this.deepInsertSvc = deepInsertService;
     this.appUserRecordRepo = appUserRecordRepo;
     this.preprocessors = preprocessors;
@@ -106,7 +110,7 @@ export default class DataManager {
      * @memberof DataManager
      */
   public async cleanup(): Promise<(Xrm.LookupValue | void)[]> {
-    const repo = this.appUserRecordRepo || this.currentUserRecordRepo;
+    const repo = this.appUserRecordRepo || this.currentUserRecordRepo || this.metadataRepo;
 
     const deletePromises = this.refs.map(async (record) => {
       let reference;
@@ -134,5 +138,10 @@ export default class DataManager {
       (record, preprocesser) => preprocesser.preprocess(record) ?? record,
       data,
     ) ?? data;
+  }
+
+  public async getFormIdFromFormNameAndEntity(formName: string, entityName:string): Promise<string> {
+    const formId = await this.metadataRepo.getFormId(formName, entityName);
+    return formId;
   }
 }

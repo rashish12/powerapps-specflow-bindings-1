@@ -14,6 +14,8 @@ export default class MetadataRepository {
 
   private static readonly OneToNMetadataSet = 'RelationshipDefinitions/Microsoft.Dynamics.CRM.OneToManyRelationshipMetadata';
 
+  private static readonly SystemForms = 'systemforms';
+
   /**
      * Gets the entity set for an entity.
      *
@@ -84,5 +86,21 @@ export default class MetadataRepository {
     );
 
     return response.json();
+  }
+
+  /**
+  * Retrieves GUID of a form based on entity name and form name.
+  * @param formName The name of the form for which Id to be retrieved.
+  * @param entityName The name of entity.
+  */
+  public async getFormId(formName: string, entityName: string): Promise<string> {
+    const response = await fetch(
+      'api/data/v9.1/'
+            + `${MetadataRepository.SystemForms}?$filter=objecttypecode eq '${entityName}' and name eq '${formName}' &$select=formid,name,type`,
+      { cache: 'force-cache' },
+    );
+    const result = await response.json();
+    //return 'Im here in meta';
+    return result.value[0].formid;
   }
 }

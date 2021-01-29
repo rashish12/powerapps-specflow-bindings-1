@@ -92,6 +92,12 @@
             return new EntityReference((string)obj["entityType"], Guid.Parse((string)obj["id"]));
         }
 
+        /// <inheritdoc cref="ITestDriver"/>
+        public void OpenNewRecordMainQuickCreateForm(string formName, string entityLogicalName)
+        {
+            this.ExecuteDriverFunctionAsync($"openNewRecordMainQuickCreateForm('{formName}','{entityLogicalName}')");
+        }
+
         private static string GetExecuteScriptForAsyncFunction(string functionCall)
         {
             return $"{TestDriverReference}.{functionCall}.then(arguments[arguments.length - 1]).catch(e => {{ arguments[arguments.length - 1](`{ErrorPrefix}: ${{ e.message }}`); }});";

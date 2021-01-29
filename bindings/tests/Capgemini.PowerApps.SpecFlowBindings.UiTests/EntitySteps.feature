@@ -190,3 +190,7 @@ Scenario: Assert fields not editable
 	Then I can not edit the following fields
 		| Field             |
 		| createdonbehalfby |
+
+Scenario: Assert main or quick create form is opened
+	Given I open 'Information' form for the 'sb_mockrecord' entity
+	Then the 'sb_name' field is mandatory

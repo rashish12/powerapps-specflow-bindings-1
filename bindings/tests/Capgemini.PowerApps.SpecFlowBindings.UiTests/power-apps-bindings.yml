@@ -1,17 +1,17 @@
-url: POWERAPPS_SPECFLOW_BINDINGS_TEST_URL
+url: https://arsandbox.crm11.dynamics.com/main.aspx?forceUCI=1&pagetype=apps
 browserOptions:
   browserType: Chrome
-  headless: true
+  headless: false
   width: 1920
   height: 1080
   startMaximized: false
 applicationUser:
-  tenantId: POWERAPPS_SPECFLOW_BINDINGS_TEST_TENANTID
-  clientId: POWERAPPS_SPECFLOW_BINDINGS_TEST_CLIENTID
-  clientSecret: POWERAPPS_SPECFLOW_BINDINGS_TEST_CLIENTSECRET
+  tenantId: 2b2cd816-bde8-445c-9029-54d9e4a5153f
+  clientId: 6a3d8c05-378c-41b6-82cf-fbc23b394d1e
+  clientSecret: gX4.LZ0QEKmNDQ.2b0-L3axhsf-n_GK7k3
 users: 
-  - username: POWERAPPS_SPECFLOW_BINDINGS_TEST_ADMIN_USERNAME
-    password: POWERAPPS_SPECFLOW_BINDINGS_TEST_ADMIN_PASSWORD
+  - username: ashishr@arsandbox.onmicrosoft.com
+    password: Dynamics@2020
     alias: an admin
   - username: POWERAPPS_SPECFLOW_BINDINGS_TEST_ADMIN_USERNAME
     alias: an aliased user

@@ -85,4 +85,22 @@ export default class Driver {
   public getRecordReference(alias: string): Xrm.LookupValue {
     return this.dataManager.refsByAlias[alias];
   }
+
+  /**
+     * Opens a new record main/quick create form.
+     *
+     * @param {string} formName The name of the entity form to be opened.
+     * @param {string} entityLogicalName The logical name of the entity.
+     * @returns {Xrm.Async.PromiseLike<Xrm.Navigation.OpenFormResult} Open form result.
+     * @memberof Driver
+     */
+  public openNewRecordMainQuickCreateForm(formName: string, entityLogicalName:string): Xrm.Async.PromiseLike<Xrm.Navigation.OpenFormResult> {
+    let entityFormId;
+    this.dataManager.getFormIdFromFormNameAndEntity(formName, entityLogicalName).then((response) => { entityFormId = response; });
+
+    return Xrm.Navigation.openForm({
+      entityName: entityLogicalName,
+      formId: entityFormId,
+    });
+  }
 }

@@ -18,6 +18,19 @@
     public class EntitySteps : PowerAppsStepDefiner
     {
         /// <summary>
+        /// Opens a new record main/quick create entity form.
+        /// </summary>
+        /// <param name="formName">The name of the form to be opened.</param>
+        /// <param name="entityLogicalName">The logical name of the entity.</param>
+        [Given(@"I open '(.*)' form for the '(.*)' entity")]
+        public static void GivenIOpenFormForTheEntity(string formName, string entityLogicalName)
+        {
+            TestDriver.OpenNewRecordMainQuickCreateForm(formName, entityLogicalName);
+
+            Driver.WaitForTransaction();
+        }
+
+        /// <summary>
         /// Selects a tab on the form.
         /// </summary>
         /// <param name="tabName">The name of the tab.</param>

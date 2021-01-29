@@ -43,5 +43,12 @@
         /// <param name="recordAlias">The alias of the test record.</param>
         /// <returns>A reference to the created record.</returns>
         EntityReference GetTestRecordReference(string recordAlias);
+
+        /// <summary>
+        /// Open a new record main/quick create form.
+        /// </summary>
+        /// <param name="formName">The name of the entity form to be opened.</param>
+        /// <param name="entityLogicalName">The logical name of the entity.</param>
+        void OpenNewRecordMainQuickCreateForm(string formName, string entityLogicalName);
     }
 }
